@@ -1,79 +1,91 @@
 {
-  "version": "1.0",
+  "version": "1.0-it",
   "total": 100,
-  "note": "Twelve items. Score each honestly - a generous score helps nobody. Most first-pass profiles land in the 30s and 40s. The weighting is deliberate: the name field, the first bio line and the pinned three are worth more than the photo, because they are what a stranger who arrived from one reel actually processes before deciding to follow.",
+  "note": "Dodici voci. Dai a ognuna un punteggio onesto: un punteggio generoso non aiuta nessuno. La maggior parte dei profili, al primo passaggio, sta tra 30 e 45. I pesi sono voluti: il campo nome, la prima riga della bio e i tre post fissati valgono più della foto, perché sono quello che uno sconosciuto arrivato da un solo reel legge davvero prima di decidere se seguire. Per le attività locali vale la stessa griglia con un altro metro: chi arriva sta decidendo se venire, prenotare o chiamare.",
   "items": [
     {
       "id": "name_field",
       "points": 12,
-      "full_marks": "The name field (30 characters, the bold line, not the handle) carries the name plus what they do in words people search: 'Dana Ruiz | Proposal templates'. This field is indexed by Instagram search and most accounts waste it on a name alone.",
-      "common_fail": "Just a name, or a name with an emoji."
+      "full_marks": "Il campo nome (30 caratteri, la riga in grassetto, non l'handle) contiene il nome più cosa fai, con le parole che la gente cerca: \"Osteria Da Loriano | Cucina veneta Schio\". Questo campo è indicizzato dalla ricerca di Instagram e quasi tutti lo sprecano con il solo nome. Per un'attività locale il paese è la parola cercata.",
+      "common_fail": "Solo il nome, o il nome con un'emoji, o lettere decorative che la ricerca non legge.",
+      "label": "Campo nome"
     },
     {
       "id": "bio_first_line",
       "points": 12,
-      "full_marks": "Line one names who this is for and what changes for them, in their words. Not a job title, not a list of adjectives, not three emoji separated by bars.",
-      "common_fail": "'Entrepreneur | Coffee lover | Dog dad'."
+      "full_marks": "La prima riga dice per chi è e cosa cambia per loro, con le loro parole. Non un titolo professionale, non una lista di aggettivi, non tre emoji separate da barre. Per un locale: cosa si mangia o si trova, e per chi.",
+      "common_fail": "\"Imprenditore | Amante del caffè | Papà\", oppure \"Dal 1980\".",
+      "label": "Bio, prima riga"
     },
     {
       "id": "bio_body",
       "points": 8,
-      "full_marks": "The rest of the 150 characters carries one piece of proof or one specific offer, and reads as sentences rather than a pipe-separated list.",
-      "common_fail": "Keyword soup, or blank space."
+      "full_marks": "Il resto dei 150 caratteri porta una prova o un'offerta precisa, ed è scritto in frasi, non in una lista con le barre. Per un locale: dove, quando è aperto, come si prenota.",
+      "common_fail": "Parole chiave buttate lì, o spazio vuoto.",
+      "label": "Bio, corpo"
     },
     {
       "id": "pinned_three",
       "points": 10,
-      "full_marks": "Three posts pinned to the top of the grid, doing three different jobs: the best proof, the clearest explanation of the offer, and the best introduction to the person. Not the three highest-view posts by accident.",
-      "common_fail": "Nothing pinned, so the top of the grid is whatever was posted last."
+      "full_marks": "Tre post fissati in cima alla griglia, con tre compiti diversi: la prova migliore, la spiegazione più chiara dell'offerta e la presentazione migliore della persona o del posto. Non i tre con più visualizzazioni per caso.",
+      "common_fail": "Niente fissato, quindi in cima c'è l'ultima cosa pubblicata.",
+      "label": "Tre post fissati"
     },
     {
       "id": "link",
       "points": 8,
-      "full_marks": "One destination that matches what the bio just promised. Up to five links are allowed; more than two is a menu, and a menu converts worse than a door.",
-      "common_fail": "A link tree with eleven options, or no link at all."
+      "full_marks": "Una destinazione che corrisponde a quello che la bio ha appena promesso (prenotazione, menù, contatti, Maps). Si possono mettere fino a cinque link; più di due è un menù, e un menù converte peggio di una porta.",
+      "common_fail": "Un link tree con undici voci, la homepage invece della pagina giusta, o nessun link.",
+      "label": "Link"
     },
     {
       "id": "highlights",
       "points": 8,
-      "full_marks": "Four to six highlights named for the questions a buyer actually asks: Pricing, Results, How it works, About. Covers consistent. Nothing older than a year sitting at the front.",
-      "common_fail": "'Random', 'Life', 'Faves', or 14 highlights in no order."
+      "full_marks": "Da quattro a sei, chiamate come le domande che fa chi compra: Prezzi, Risultati, Come funziona, Chi siamo; per un locale Menù, Prenota, Dove e orari, Eventi. Copertine coerenti. Niente più vecchio di un anno in prima posizione.",
+      "common_fail": "\"Random\", \"Vita\", \"Preferiti\", oppure 14 in ordine sparso, oppure nessuna.",
+      "label": "Storie in evidenza"
     },
     {
       "id": "grid_legibility",
       "points": 8,
-      "full_marks": "The first nine covers are legible at thumbnail size and say what the account is about without a single tap. Reel covers are chosen deliberately, not left as frame one.",
-      "common_fail": "Nine covers of a face mid-word with no text."
+      "full_marks": "Le prime nove copertine si leggono a dimensione miniatura e dicono di cosa parla l'account senza toccare niente. Le copertine dei reel sono scelte, non lasciate sul primo fotogramma.",
+      "common_fail": "Nove copertine di una faccia a metà parola, senza testo.",
+      "label": "Griglia leggibile"
     },
     {
       "id": "photo",
       "points": 6,
-      "full_marks": "Face fills roughly 60% of a circle that renders at about 40 pixels. Eyes visible, shot in the last two years, background not competing.",
-      "common_fail": "A full-body shot, a logo for a personal brand, or a photo taken at arm's length in a dark room."
+      "full_marks": "Per una persona: il volto riempie circa il 60% di un cerchio che si vede a circa 40 pixel, occhi visibili, foto degli ultimi due anni, sfondo che non distrae. Per un'attività: un logo o la vetrina che si leggono a quella dimensione.",
+      "common_fail": "Foto a figura intera, logo per un brand personale, selfie al buio a braccio teso, logo illeggibile.",
+      "label": "Foto profilo"
     },
     {
       "id": "handle",
       "points": 6,
-      "full_marks": "Readable, sayable out loud, and the same handle as the other platforms. No stacked underscores or numbers standing in for letters.",
-      "common_fail": "A handle nobody can spell after hearing it once."
+      "full_marks": "Leggibile, si dice ad alta voce, uguale sulle altre piattaforme e coerente con il sito. Niente underscore in fila o numeri al posto delle lettere.",
+      "common_fail": "Un handle che nessuno sa scrivere dopo averlo sentito una volta.",
+      "label": "Handle"
     },
     {
       "id": "category_contact",
       "points": 6,
-      "full_marks": "Professional account with a category that matches the offer, and contact buttons that work. Email that is checked, not the one from 2019.",
-      "common_fail": "Personal account, so there are no insights and no contact button."
+      "full_marks": "Account professionale, categoria che corrisponde all'offerta, pulsanti di contatto che funzionano, indirizzo e telefono per un'attività locale, un'email che qualcuno legge. Per un'attività questa voce conta di più: sii severo.",
+      "common_fail": "Account personale, quindi niente insight e niente pulsante contatto; categoria sbagliata; nessun indirizzo.",
+      "label": "Categoria e contatti"
     },
     {
       "id": "recent_activity",
       "points": 10,
-      "full_marks": "Posted in the last seven days and replied to comments on the most recent post. An account that last posted in March reads as closed.",
-      "common_fail": "A five-week gap, or a wall of unanswered comments."
+      "full_marks": "Pubblicato negli ultimi sette giorni e risposto ai commenti dell'ultimo post. Un account che ha pubblicato l'ultima volta a marzo sembra chiuso; per un locale aperto tutti i giorni bastano due settimane di silenzio.",
+      "common_fail": "Un buco di cinque settimane, o una fila di commenti senza risposta.",
+      "label": "Attività recente"
     },
     {
       "id": "story_presence",
       "points": 6,
-      "full_marks": "A story up right now, or at least most days. It is the difference between a profile and a person.",
-      "common_fail": "No ring, ever."
+      "full_marks": "Una storia attiva adesso, o almeno quasi ogni giorno. È la differenza tra un profilo e una persona (o un posto vivo).",
+      "common_fail": "Nessun anello, mai.",
+      "label": "Storie"
     }
   ]
 }

@@ -1,5 +1,43 @@
 # The Instagram agent skill
 
+> **Fork italiano** di
+> [Jakeschincariol/instagram-agent-skill](https://github.com/Jakeschincariol/instagram-agent-skill)
+> (licenza MIT, credito all'autore originale). Mantenuto da Leo.
+>
+> - Le 13 `SKILL.md` sono in italiano, con un blocco "Preparazione" comune:
+>   gli script si usano da accanto alla skill se ci sono, altrimenti si clonano
+>   da questo fork in una cartella temporanea. I file dell'utente (voice.md,
+>   swipe.md, log.md, plan.md) vanno nel Project se c'è, altrimenti in
+>   `~/.claude/instagram/`.
+> - I sei script Python (hookscore, beats, detect, humanize, caption, swipe)
+>   stampano in italiano e hanno lessici italiani accanto a quelli inglesi:
+>   lingua rilevata da sola o `--lang it|en`. Tempi in italiano in sillabe al
+>   secondo (`--sps`). hooks.json: 27 formule con esempi italiani e regex
+>   bilingui. slop.json: voci separate per lingua, più i tic tipici dei testi
+>   per attività locali. rubric.json tradotto. Corretto il crash di
+>   `swipe.py --out file.md` su un percorso senza cartella.
+> - `/ig-profile` ha la modalità attività locale e la modalità prospect;
+>   `/ig-dm` ha il primo messaggio a un prospect partendo da un'analisi.
+>
+> **Installazione del fork in Claude Code** (globale, tutte e 13):
+>
+> ```bash
+> git clone https://github.com/leonardo23berto23/instagram-agent-skill.git
+> cp -r instagram-agent-skill/skills/ig-* ~/.claude/skills/
+> ```
+>
+> Su Windows (PowerShell):
+>
+> ```powershell
+> git clone https://github.com/leonardo23berto23/instagram-agent-skill.git
+> Copy-Item -Recurse -Force instagram-agent-skill\skills\ig-* $env:USERPROFILE\.claude\skills\
+> ```
+>
+> Oppure come plugin:
+> `/plugin marketplace add leonardo23berto23/instagram-agent-skill` e poi
+> `/plugin install instagram-agent`. Per aggiornare: `git pull` nella cartella
+> e ricopia. Il resto di questo README è quello originale, in inglese.
+
 Thirteen Claude skills that run an Instagram account. Free, MIT, no signup, no
 API key, nothing to connect.
 

@@ -1,104 +1,119 @@
 ---
 name: ig-audit
 description: >-
-  Post-mortem on what the user has already posted - which reels actually
-  worked, why, and what to stop making. Use when the user pastes their
-  Instagram insights or past posts and asks "what's working", "why did this
-  flop", "read my analytics", "audit my content", or wants to know what to do
-  more of.
+  Analisi a posteriori di quello che un account ha già pubblicato: quali reel
+  hanno funzionato davvero, perché, e cosa smettere di fare. Misura multiplo
+  sulla mediana, reach da non follower, tenuta a 3 secondi e invii per reach.
+  Usala quando l'utente incolla gli insight o i post e chiede "cosa funziona",
+  "perché è andato male", "leggi le mie statistiche", "analizza i miei
+  contenuti", o vuole sapere cosa fare di più. Funziona anche su un account non
+  suo, con i soli dati pubblici.
 ---
 
 # ig-audit
 
-The only honest source of what works for an account is that account. Every
-rule in every Instagram guide, including the ones in this pack, is a prior.
-The user's own last 30 posts are the evidence.
+L'unica fonte onesta su cosa funziona per un account è quell'account. Ogni
+regola di ogni guida a Instagram, comprese quelle di questo pacchetto, è
+un'ipotesi. Gli ultimi 30 post dell'utente sono la prova.
+
+## Preparazione (comune a tutto il pacchetto ig-*)
+
+Pacchetto: https://github.com/leonardo23berto23/instagram-agent-skill (fork
+italiano dell'originale di Jake Schincariol, licenza MIT). Questa skill non ha
+script. Le 27 formule stanno in `ig-reel/hooks.json`: accanto a questo file in
+un'installazione locale, altrimenti nel clone di sessione descritto in /ig-reel.
+
+- **File dell'utente** (`log.md`, `plan.md`, `swipe.md`): se c'è un Project
+  collegato, documenti del Project sotto `claude/instagram/`; altrimenti
+  `~/.claude/instagram/`. Un log per account se l'utente gestisce clienti.
+- **Account non dell'utente (un potenziale cliente).** Da fuori si vedono solo
+  visualizzazioni, mi piace, commenti e date. Calcola il multiplo sulla mediana
+  e i pattern di formato, durata e tema da quelli; segna reach, tenuta, invii
+  e follow come sconosciuti e non stimarli mai.
 
 ## Input
 
-Ask for whichever the user has:
+Chiedi quello che l'utente ha:
 
-- Insights per post: views, reach, interactions, watch time, saves, shares,
-  follows, and the non-follower share of reach. Screenshots are fine.
-- Or the retention graph for their best and worst recent reels. This one
-  screenshot is worth more than the rest combined.
-- Or just the posts and their view counts, which is enough for a first pass.
+- Gli insight per post: visualizzazioni, reach, interazioni, tempo di visione,
+  salvataggi, condivisioni, follow, e la quota di reach da non follower. Gli
+  screenshot vanno bene.
+- Oppure il grafico di permanenza dei reel migliori e peggiori. Quello
+  screenshot da solo vale più di tutto il resto.
+- Oppure solo i post e le loro visualizzazioni, che bastano per un primo giro.
 
-Also read `~/.claude/instagram/log.md` if it exists, since it records which
-hook formula each post used.
+Leggi anche `log.md` se esiste: dice quale formula ha usato ogni post.
 
-## What to actually measure
+## Cosa misurare davvero
 
-Raw views is the least useful number on the page, because it is mostly a
-function of how many people already follow the account. Compute these instead
-and show the working:
+Le visualizzazioni sono il numero meno utile della pagina, perché dipendono
+soprattutto da quante persone seguono già l'account. Calcola questi, e mostra
+i conti:
 
-| metric | how | what it tells you |
+| misura | come | cosa ti dice |
 | --- | --- | --- |
-| **Outlier multiple** | views / the account's own median views | whether this was a real hit or a normal day |
-| **Non-follower reach** | % of reach from people who do not follow | whether it travelled at all |
-| **Hold at 3s** | viewers still there at 3s / viewers who started | whether the hook worked. This is the hook's grade. |
-| **Average watch time** | straight from insights | whether the middle worked |
-| **Sends per reach** | shares / reach | the strongest single signal you can earn. A send is a person putting their name on it. |
-| **Follows per reach** | follows / reach | whether the profile converted the attention |
+| **Multiplo** | visualizzazioni / mediana dell'account | se è stato un colpo vero o una giornata normale |
+| **Reach da non follower** | % della reach da chi non segue | se è uscito dalla bolla |
+| **Tenuta a 3s** | spettatori ancora lì a 3s / spettatori partiti | se l'hook ha funzionato: è il voto dell'hook |
+| **Tempo medio di visione** | dagli insight | se il centro ha funzionato |
+| **Invii per reach** | condivisioni / reach | il segnale più forte che puoi guadagnarti: chi manda ci mette il suo nome |
+| **Follow per reach** | follow / reach | se il profilo ha trasformato l'attenzione |
+| **Visualizzazioni / follower** (account esterni) | mediana / follower | se l'account esce regolarmente dai propri follower |
 
-Rank by outlier multiple and sends per reach, not views. A reel with 4,000
-views and 90 sends beat the one with 60,000 views and 11.
+Ordina per multiplo e invii per reach, non per visualizzazioni. Un reel con
+4.000 visualizzazioni e 90 invii ha battuto quello con 60.000 e 11.
 
-## Then find the pattern
+## Poi trova il pattern
 
-With the top five and bottom five side by side, look for what separates them,
-and be willing to conclude something the user will not like:
+Con i cinque migliori e i cinque peggiori uno accanto all'altro, cerca cosa li
+separa, e sii pronto a concludere qualcosa che all'utente non piacerà:
 
-- **Hold at 3 seconds.** If the top and bottom differ here, it is the hook and
-  nothing else, and everything downstream is a distraction.
-- **Hook formula.** Which ids from `ig-reel/hooks.json` are in the top five?
-- **Format.** Reel, carousel, single image.
-- **Length.** Group into under 15s, 15 to 30s, 30 to 60s, over 60s.
-- **Theme.**
-- **Whether the user replied to comments in the first hour.**
-- **Day and time.** Check this **last** and only if the others show nothing.
-  It is almost never the cause and it is where people want it to be.
+- **Tenuta a 3 secondi.** Se migliori e peggiori differiscono qui, è l'hook e
+  nient'altro, e tutto il resto è una distrazione.
+- **Formula dell'hook.** Quali formule di `hooks.json` sono nei cinque migliori?
+- **Formato.** Reel, carosello, foto.
+- **Durata.** Sotto i 15 s, 15-30, 30-60, oltre 60.
+- **Tema.**
+- **Collaborazioni.** Un reel in collaborazione esce su due profili: separalo.
+- **Se l'utente ha risposto ai commenti nella prima ora.**
+- **Giorno e ora.** Per **ultimi**, e solo se il resto non mostra niente. Non è
+  quasi mai la causa ed è dove la gente vorrebbe che fosse.
 
-State the finding as a claim with the evidence attached, and say how confident
-it is. With 30 posts you can see a pattern. With 6 you cannot, and saying so is
-better than inventing one.
+Formula il risultato come un'affermazione con la prova accanto, e di' quanto
+ti fidi. Con 30 post vedi un pattern. Con 6 no, e dirlo è meglio che inventarne
+uno.
 
-## The distinction that saves people months
+## La distinzione che fa risparmiare mesi
 
-**A reel that gets views and no follows is not a failed reel, it is a profile
-problem.** A reel that gets no views is a hook problem. Separate the two before
-recommending anything. If non-follower reach is high and follows per reach is
-low, stop rewriting hooks and go to `/ig-profile`.
+**Un reel che fa visualizzazioni e nessun follow non è un reel sbagliato: è un
+problema di profilo.** Un reel che non fa visualizzazioni è un problema di
+hook. Separa le due cose prima di consigliare qualsiasi cosa. Se la reach da
+non follower è alta e i follow per reach sono bassi (o, da fuori, le
+visualizzazioni superano molto i follower ma i follower non crescono), smetti
+di riscrivere gli hook e passa a /ig-profile.
 
-## Output
+## Risultato
 
 ```
-AUDIT  ·  31 posts  ·  Jun 12 - Sep 5  ·  median views 4,100
+AUDIT  ·  31 post  ·  12 giu - 5 set  ·  mediana 4.100 visualizzazioni
 
-TOP 5 BY OUTLIER MULTIPLE
-  18.2x  #3  Nobody Tells You   74,600 views  62% non-follower  hold@3s 71%  128 sends
-   6.4x  #1  Cost Confession    26,300 views  48% non-follower  hold@3s 64%   71 sends
-  ...
+I 5 MIGLIORI PER MULTIPLO
+  18,2x  #3  Nessuno te lo dice   74.600  62% non follower  tenuta 71%  128 invii
+   6,4x  #1  Confessione del costo 26.300  48% non follower  tenuta 64%   71 invii
 
-BOTTOM 5
-   0.3x  #11 Numbered            1,200 views  9% non-follower   hold@3s 31%    2 sends
-  ...
+I 5 PEGGIORI
+   0,3x  #11 Elenco               1.200   9% non follower  tenuta 31%    2 invii
 
-WHAT THE DATA SAYS
-1. Hold at 3 seconds is the whole story. Top five average 66%, bottom five 33%.
-   Everything else you are worried about is downstream of the first two seconds.
-2. The posts where you were the one who looked bad: mean 8.1x vs 0.9x for
-   everything else. n=5. Strongest signal here and it is not close.
-3. Tool listicles get views and nothing else. High reach, no sends, no follows.
-   Three of your bottom five.
-4. Day of week shows nothing. Your Tuesday and Friday means are inside the
-   noise. Stop optimising it.
+COSA DICONO I DATI
+1. La tenuta a 3 secondi è tutta la storia: 66% in alto, 33% in basso.
+2. I post dove sei tu a fare brutta figura: media 8,1x contro 0,9x. n=5.
+3. Gli elenchi di strumenti fanno visualizzazioni e nient'altro.
+4. Il giorno della settimana non dice niente. Smetti di ottimizzarlo.
 
-STOP: listicles.
-DO MORE: the ones with a cost you paid and a number attached.
+SMETTI: elenchi.
+FAI DI PIÙ: quelli con un costo pagato e un numero.
 ```
 
-Then hand the conclusions to `/ig-plan` so next week is built on the user's own
-evidence rather than on defaults, and to `/ig-viral` so the swipe file gets
-filtered to the formulas that work for this account specifically.
+Poi passa le conclusioni a /ig-plan, così la settimana dopo si basa sulle prove
+dell'utente, e a /ig-viral, così lo swipe file si filtra sulle formule che
+funzionano per questo account.

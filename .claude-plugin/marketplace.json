@@ -1,18 +1,18 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "instagram-agent-skill",
-  "description": "The Instagram agent skill pack for Claude",
+  "description": "The Instagram agent skill pack for Claude - Italian fork",
   "owner": {
-    "name": "Jake Schincariol",
-    "url": "https://opusjake.ai"
+    "name": "Leonardo Berto",
+    "url": "https://github.com/leonardo23berto23"
   },
   "plugins": [
     {
       "name": "instagram-agent",
-      "description": "Thirteen Claude skills that run an Instagram account, including a scored hook panel, a viral research skill, a caption linter and a humanizer.",
+      "description": "Tredici skill per gestire un account Instagram, in italiano: reel con hook valutato, ricerca di cosa funziona nella nicchia, didascalie, caroselli, storie, profilo, piano, commenti, risposte, DM, riutilizzo, audit e un humanizer. Fork di Jake Schincariol.",
       "source": "./",
       "category": "productivity",
-      "homepage": "https://github.com/Jakeschincariol/instagram-agent-skill"
+      "homepage": "https://github.com/leonardo23berto23/instagram-agent-skill"
     }
   ]
 }

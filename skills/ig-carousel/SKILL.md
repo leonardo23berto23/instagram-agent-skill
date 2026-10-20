@@ -1,103 +1,118 @@
 ---
 name: ig-carousel
 description: >-
-  Build an Instagram carousel - the cover that earns the swipe, slide-by-slide
-  copy, and the 1080x1350 files to upload. Use when the user says "carousel",
-  "slides", "swipe post", "turn this into a carousel", or has a list-shaped or
-  step-shaped idea that would die as a single image.
+  Costruisce un carosello Instagram: la copertina che si guadagna lo
+  scorrimento, il testo slide per slide, la didascalia e i file 1080x1350 da
+  caricare. Usala quando l'utente dice "carosello", "slide", "post a scorrimento",
+  "trasformalo in un carosello", o ha un'idea fatta a elenco o a passaggi che
+  morirebbe in un'immagine singola.
 ---
 
 # ig-carousel
 
-Carousels are the highest-dwell format on the grid, because a swipe is an
-interaction and a scroll is not. They also get a second chance: Instagram can
-show a carousel again starting from a later slide to someone who did not engage
-the first time, so slide two has to stand on its own as well.
+## Preparazione (comune a tutto il pacchetto ig-*)
 
-The format rewards one idea broken into steps. It punishes a caption cut into
-pieces.
+Pacchetto: https://github.com/leonardo23berto23/instagram-agent-skill (fork
+italiano dell'originale di Jake Schincariol, licenza MIT). Questa skill non ha
+script propri; testo e didascalia passano per /ig-human e /ig-caption.
 
-## When to use it instead of a Reel
+- **Voce.** Se esiste `voice.md` (documento del Project sotto
+  `claude/instagram/`, oppure `~/.claude/instagram/`), leggilo prima.
+- **Lingua.** Scrivi nella lingua del pubblico dell'account. L'italiano è circa
+  il 20% più lungo dell'inglese: conta le parole contro i limiti qui sotto,
+  ogni volta.
 
-Use a carousel when the idea has **sequence and needs to be re-read**: steps, a
-framework with parts, a before and after, a list worth screenshotting. Use a
-Reel when the idea has motion, a face, or a payoff that has to be seen
-happening.
+I caroselli sono il formato con più tempo di permanenza sulla griglia, perché
+scorrere è un'interazione e scrollare no. Hanno anche una seconda possibilità:
+Instagram può riproporre un carosello partendo da una slide successiva a chi non
+ha interagito la prima volta, quindi anche la slide due deve reggersi da sola.
 
-If the idea is one claim, it is neither. Hand it to `/ig-reel` and say so.
+Il formato premia un'idea divisa in passaggi. Punisce una didascalia tagliata a
+pezzi.
 
-## Structure
+## Quando usarlo al posto di un Reel
 
-6 to 10 slides. The cap is 20 and 20 is almost always a book nobody finishes.
-Under 5 and the swipe never starts.
+Usa un carosello quando l'idea ha **una sequenza e va riletta**: passaggi, uno
+schema con parti, un prima e dopo, un elenco da salvare. Usa un Reel quando
+l'idea ha movimento, una faccia, o una resa che va vista mentre succede.
+
+Se l'idea è un'affermazione sola, non è nessuno dei due. Passala a /ig-reel e
+dillo.
+
+## Struttura
+
+Da 6 a 10 slide. Il limite è 20, e 20 è quasi sempre un libro che nessuno
+finisce. Sotto 5 lo scorrimento non parte.
 
 ```
-1         COVER     the hook. 6 words or fewer, at a size that is legible in
-                    the grid at thumbnail. One line of promise under it.
-2         THE STAKE why this matters, in one sentence. This slide is also a
-                    second cover, so it cannot be setup.
-3 to N    ONE IDEA PER SLIDE. A headline of 3 to 7 words, at most 25 words
-                    under it. If a slide needs a paragraph, it is two slides.
-N+1       RECAP     the whole thing as a list. This is the screenshot slide.
-LAST      CTA       one action. Save, comment a keyword, or follow. One.
+1          COPERTINA       l'hook. Sei parole o meno, leggibile in miniatura nella
+                           griglia. Una riga di promessa sotto.
+2          POSTA IN GIOCO  perché importa, in una frase. È anche una seconda
+                           copertina, quindi non può essere preparazione.
+3 - N      UN'IDEA PER SLIDE. Un titolo di 3-7 parole, al massimo 25 parole sotto.
+                           Se una slide ha bisogno di un paragrafo, sono due slide.
+N+1        RIEPILOGO       tutto in un elenco. È la slide che si fotografa.
+ULTIMA     RICHIESTA       un'azione. Salva, commenta una parola o segui. Una.
 ```
 
-## Slide copy rules
+## Regole per il testo delle slide
 
-- **The cover is 80% of the result.** Six words. Big. Nothing on the deck saves
-  a cover nobody swipes.
-- **Design for the grid crop.** The profile grid crops to a portrait rectangle
-  that is taller than it is wide, and the exact ratio has moved more than once.
-  Build at 1080x1350 and keep the cover text well inside the middle, clear of
-  the outer 120 pixels on every side, and the crop stops mattering.
-- **Number the slides** (3/8). Completion goes up when people can see the end.
-- **No slide is a paragraph.** If it cannot be said in 25 words, split it.
-- **The recap slide is the one people screenshot and send.** Sends are the
-  strongest signal you can earn. Make it standalone and readable with no
-  context.
-- **The handle on every slide**, small, bottom corner. Screenshots travel
-  without you.
-- **Alt text on the cover at minimum.** It is read by screen readers and by
+- **La copertina è l'80% del risultato.** Sei parole. Grandi. Niente nel resto
+  salva una copertina che nessuno scorre.
+- **Progetta per il ritaglio della griglia.** La griglia del profilo taglia a un
+  rettangolo verticale, e il rapporto esatto è cambiato più volte. Costruisci a
+  1080x1350 e tieni il testo della copertina ben al centro, lontano dai 120
+  pixel esterni su ogni lato: così il ritaglio non conta.
+- **Numera le slide** (3/8). Si arriva più spesso alla fine se la fine si vede.
+- **Nessuna slide è un paragrafo.** Se non sta in 25 parole, dividila.
+- **La slide riepilogo è quella che si fotografa e si manda.** Gli invii sono il
+  segnale più forte. Deve reggersi da sola, senza contesto.
+- **L'handle su ogni slide**, piccolo, in basso. Gli screenshot girano senza di te.
+- **Testo alternativo almeno sulla copertina.** Lo leggono gli screen reader e
   Instagram.
+- **Dati che non conosci** (prezzi, durate, come funziona un servizio) restano
+  tra graffe, `{{così}}`. Mai inventarli.
 
-## Building the files
+## Costruire i file
 
-Instagram wants 1080x1350 (4:5), JPEG or PNG, up to 20 items. Build it as HTML
-and print each slide:
+Instagram vuole 1080x1350 (4:5), JPEG o PNG, fino a 20 elementi. Costruiscilo in
+HTML e stampa ogni slide:
 
 ```bash
-# one <section> per slide, 1080x1350, page-break-after: always
-# then Chrome headless --print-to-pdf, or any HTML-to-image you already use
+# una <section> per slide, 1080x1350, page-break-after: always
+# poi Chrome headless --print-to-pdf, uno screenshot Playwright per sezione,
+# o qualsiasi conversione HTML in immagine che usi già
 ```
 
-Write the HTML with `width:1080px; height:1350px`, a single accent colour, and
-type no smaller than 32px, because this is read on a phone at a third of its
-real size. If the project has a brand skill or a design system, use it and do
-not invent a palette.
+Scrivi l'HTML con `width:1080px; height:1350px`, un solo colore di accento e
+testo mai sotto i 32px, perché si legge su un telefono a un terzo della
+dimensione reale. Se c'è una skill di brand o un design system, usalo e non
+inventare una palette. Per un account cliente, colori e logo del cliente, mai
+quelli dell'utente.
 
-## Output
+## Risultato
 
-The slide-by-slide copy first, as a numbered list the user can read in ten
-seconds and edit before anything is rendered. Then the **caption**, which for a
-carousel is Job B in `/ig-caption`: the caption is doing work here, because the
-cover has already used its six words.
+Prima il testo slide per slide, come lista numerata che l'utente legge in dieci
+secondi e corregge prima di costruire qualsiasi cosa. Poi la **didascalia**, che
+per un carosello è il lavoro B di /ig-caption: la didascalia lavora, perché la
+copertina ha già usato le sue sei parole.
 
-Run both through `/ig-human`. Build the files only after the user approves the
-copy.
+Passa entrambi per /ig-human e la didascalia per /ig-caption. Costruisci i file
+solo dopo che l'utente ha approvato il testo.
 
 ```
-CAROUSEL  ·  8 slides
+CAROSELLO  ·  8 slide
 
-1  COVER   THE $18,000 CLAUSE
-           One line I now put in every contract.
-2  STAKE   I approved the work. They asked for the money back nine days later.
-3          WHAT IT SAYS
-           Payment on delivery, not on approval.
+1  COPERTINA  LA CLAUSOLA DA 18.000 €
+              Una riga che ora metto in ogni contratto.
+2  POSTA      Ho approvato il lavoro. Nove giorni dopo hanno chiesto i soldi indietro.
+3             COSA DICE
+              Pagamento alla consegna, non all'approvazione.
 ...
-7  RECAP   All four lines, in order.
-8  CTA     Comment CONTRACT and I will send the full clause.
+7  RIEPILOGO  Le quattro righe, in ordine.
+8  RICHIESTA  Commenta CONTRATTO e ti mando la clausola completa.
 
-Caption: Job B, hook in line 1, one ask, 3 tags.
+Didascalia: lavoro B, hook alla riga 1, una richiesta, 3 hashtag.
 ```
 
-Nothing is uploaded. The user posts it.
+Non si carica niente. Lo pubblica l'utente.

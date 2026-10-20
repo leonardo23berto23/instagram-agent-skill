@@ -1,119 +1,134 @@
 ---
 name: ig-caption
 description: >-
-  Write the Instagram caption - the line that survives the "... more" cut, the
-  body, the single ask, the search terms and the three hashtags - and lint it
-  before it goes out. Use when the user says "write the caption", "caption this",
-  "what do I put in the description", has a reel or a carousel ready and needs
-  the text, or asks about hashtags.
+  Scrive la didascalia Instagram (la riga che sopravvive al taglio "... altro",
+  il corpo, l'unica richiesta, i termini di ricerca e fino a cinque hashtag) e
+  la controlla con uno script prima che esca. Usala quando l'utente dice
+  "scrivi la didascalia", "che testo metto sotto", ha un reel o un carosello
+  pronto e gli serve il testo, o chiede degli hashtag.
 ---
 
 # ig-caption
 
-One tool lives in this folder and it runs:
+## Preparazione (comune a tutto il pacchetto ig-*)
+
+Pacchetto: https://github.com/leonardo23berto23/instagram-agent-skill (fork
+italiano dell'originale di Jake Schincariol, licenza MIT).
+
+- **Script.** Se `caption.py` sta accanto a questo file, usalo da lì.
+  Altrimenti scarica il pacchetto una volta per sessione in una cartella
+  temporanea (lo scratchpad se c'è, altrimenti /tmp), mai nel progetto
+  dell'utente:
 
 ```bash
-python3 caption.py caption.txt
-python3 caption.py caption.txt --keywords "client proposals,agency pricing"
+T="<cartella temporanea>/ig-tools"
+[ -d "$T/repo" ] || git clone --depth 1 https://github.com/leonardo23berto23/instagram-agent-skill "$T/repo"
+C="$T/repo/skills/ig-caption/caption.py"
+python3 -I "$C" didascalia.txt
+python3 -I "$C" didascalia.txt --keywords "tutor dsa vicenza,metodo di studio"
 ```
 
-It prints the caption the way the feed prints it: the first 125 characters in a
-box, everything else behind the tap. Read that box before you read anything
-else you wrote.
+  È codice scaricato: tieni la didascalia in un'altra cartella ed esegui con
+  `python3 -I`. Nessuna dipendenza, niente rete.
+- **Voce.** Se esiste `voice.md` (documento del Project sotto
+  `claude/instagram/`, oppure `~/.claude/instagram/`), leggilo prima.
 
-## First, decide which job this caption has
+Lo script stampa la didascalia come la stampa il feed: i primi 125 caratteri in
+un riquadro, il resto dietro il tocco. Leggi quel riquadro prima di qualsiasi
+altra cosa che hai scritto. Riconosce le richieste in italiano e in inglese
+("Commenta SCHEDA", "Scrivimi CRESCITA", "scrivimi in DM", "salvalo", "link in
+bio", "prenota"...), conta i numeri anche scritti in lettere, e i verdetti sono
+PRONTA, DA RIVEDERE, DA SISTEMARE (per controllo: OK, ATTENZIONE, ERRORE).
 
-This is the decision that ruins captions when it is skipped.
+## Prima di tutto, decidi che lavoro fa questa didascalia
 
-**Job A: the video already hooked them.** A Reel carries its own hook in the
-first two seconds, spoken and on screen. The caption is not a second hook and
-competing with the video is how you lose both. Its job is the ask, the context
-that makes the ask make sense, and the words people search.
+È la decisione che rovina le didascalie quando si salta.
 
-**Job B: the caption is the content.** A photo, a single image, a carousel
-cover that opens a loop. Here line one is the hook and it works exactly like a
-Reel hook: concrete, short, and cut off at a cliff rather than mid-clause.
+**Lavoro A: il video ha già agganciato.** Un Reel porta il suo hook nei primi
+due secondi, detto e a schermo. La didascalia non è un secondo hook, e fare
+concorrenza al video è il modo per perderli entrambi. Il suo lavoro è la
+richiesta, il contesto che rende sensata la richiesta e le parole che la gente
+cerca.
 
-Ask which one you are writing. If the user has a Reel with a strong hook,
-write A and say why.
+**Lavoro B: la didascalia è il contenuto.** Una foto, un'immagine singola, la
+copertina di un carosello. Qui la prima riga è l'hook e funziona come quello
+di un Reel: concreta, corta, tagliata su un'attesa e non a metà frase.
 
-## The shape
+Di' quale stai scrivendo. Se l'utente ha un Reel con un hook forte, scrivi la A
+e spiega perché.
 
-```
-Line 1      125 characters of visible space. Job A: the ask, plainly.
-            Job B: the hook.
-            Never a greeting, never a hashtag, never an emoji as the first
-            character.
-Body        short paragraphs, one line of white space between each. Two to six
-            of them. This is where the search terms live.
-The ask     one. Comment a keyword, save it, or DM. One.
-Hashtags    up to five, on their own line at the bottom, or none.
-```
-
-Limit is 2,200 characters and almost nothing needs 2,200. A caption that earns
-the tap and then delivers 600 characters beats one that delivers 1,800.
-
-## Hashtags, honestly
-
-Hashtags are not a reach lever any more, and the platform has now said so with
-a product change. **Instagram capped hashtags at five per post on 18 December
-2025**, down from thirty, telling creators that "using fewer (up to 5) more
-targeted hashtags, rather than many generic ones" performs better. Adam Mosseri
-had already said in February 2025 that hashtags do not work to increase reach
-and are a label, not a distribution lever.
-
-So: up to five, specific, as topic labels. If the user has a block of twenty
-saved in their notes app, that block is now dead weight and the linter will
-fail it.
-
-`#viral`, `#fyp`, `#explorepage`, `#foryou` describe nothing. Cut them.
-
-## Search terms matter more than hashtags now
-
-Instagram search reads the caption text. So the phrase the user wants to be
-found for goes in the caption as a phrase a human would type, in a sentence
-that reads normally. "Client proposals" as words in line three, not
-"#clientproposals" in a block at the bottom.
-
-Ask for two or three of those terms, then pass them to the linter:
-
-```bash
-python3 caption.py draft.txt --keywords "client proposals,agency pricing"
-```
-
-## Rules
-
-- **No link in the caption.** Captions are not clickable. A URL in the body is
-  dead text that says "I do not use this platform". Bio or DM.
-- **One ask.** Two asks is the same as none. `caption.py` counts them.
-- **The keyword ask needs a keyword people can type.** One word, no spaces, no
-  emoji, and say it out loud in the video too. `Comment CONTRACT` works.
-  `Comment "the contract guide"` does not.
-- **Write the first comment separately** if there is a link. Say so in the
-  receipt.
-- **Emoji as punctuation, not decoration.** The linter flags anything over
-  4 per 100 characters.
-- **Alt text is worth 20 seconds.** For carousels and photos, write it. It is
-  read by screen readers and by Instagram.
-
-## The loop
-
-1. Decide Job A or Job B and say which.
-2. Draft it.
-3. Run `/ig-human` on it. Captions are short, so slop is louder here than
-   anywhere else in the pack.
-4. Run `caption.py` with the user's search terms. Fix every FAIL. Decide on
-   every WARN out loud rather than silently.
-5. Print the copy-ready block, then the receipt:
+## La forma
 
 ```
-CAPTION READY
-job:        A - the reel carries the hook
-visible:    118 of 125 characters used before the cut
-ask:        one, comment CONTRACT
-hashtags:   3
-search:     "client proposals" in line 3, "agency pricing" in line 5
-linter:     READY
+Riga 1      125 caratteri visibili. Lavoro A: la richiesta, chiara.
+            Lavoro B: l'hook.
+            Mai un saluto, mai un hashtag, mai un'emoji come primo carattere.
+Corpo       paragrafi brevi con una riga vuota tra uno e l'altro. Da due a sei.
+            Qui stanno i termini di ricerca.
+Richiesta   una. Commenta una parola, salva, o scrivi in DM. Una.
+Hashtag     fino a cinque, su una riga a parte in fondo, o nessuno.
 ```
 
-Nothing is posted. The user pastes it.
+Il limite è 2.200 caratteri e quasi niente ne ha bisogno. Una didascalia che si
+guadagna il tocco e poi dà 600 caratteri batte una che ne dà 1.800.
+
+## Gli hashtag, onestamente
+
+Gli hashtag non sono più una leva di reach, e la piattaforma l'ha detto con un
+cambiamento di prodotto. **Dal 18 dicembre 2025 Instagram limita gli hashtag a
+cinque per post** (prima erano trenta), dicendo ai creator che usarne meno e
+più mirati funziona meglio di tanti generici. Adam Mosseri aveva già detto a
+febbraio 2025 che gli hashtag non aumentano la reach: sono un'etichetta, non
+una leva di distribuzione.
+
+Quindi: fino a cinque, specifici, come etichette dell'argomento. Se l'utente ha
+un blocco di venti salvato nelle note, ora è peso morto e lo script lo boccia.
+
+`#viral`, `#fyp`, `#perte`, `#neiperte`, `#explorepage` non descrivono niente.
+Toglili.
+
+## I termini di ricerca contano più degli hashtag
+
+La ricerca di Instagram legge il testo della didascalia. Quindi la frase per
+cui l'utente vuole essere trovato va nella didascalia così come la scriverebbe
+una persona, in una frase normale. "Metodo di studio" come parole alla terza
+riga, non "#metododistudio" in un blocco in fondo. Per le attività locali, il
+paese è un termine di ricerca.
+
+Chiedi due o tre di questi termini e passali allo script con `--keywords`.
+
+## Regole
+
+- **Niente link nella didascalia.** Non sono cliccabili. Un indirizzo nel testo
+  dice "non uso questa piattaforma". Bio o DM.
+- **Una richiesta.** Due richieste valgono quanto nessuna. Lo script le conta.
+- **La parola da commentare deve potersi scrivere.** Una parola, in MAIUSCOLO,
+  senza spazi né emoji, e detta anche nel video. `Commenta SCHEDA` funziona.
+  `Commenta "la scheda per i compiti"` no.
+- **Scrivi a parte il primo commento** se c'è un link. Dillo nella ricevuta.
+- **Emoji come punteggiatura, non come decorazione.** Lo script segnala oltre 4
+  ogni 100 caratteri.
+- **Il testo alternativo vale 20 secondi.** Per caroselli e foto, scrivilo. Lo
+  leggono gli screen reader e Instagram.
+
+## Il ciclo
+
+1. Decidi lavoro A o B e dillo.
+2. Scrivi la bozza.
+3. Passala per `/ig-human`. Le didascalie sono corte, quindi il testo da
+   macchina si sente più che altrove.
+4. Lancia `caption.py` con i termini di ricerca dell'utente. Correggi ogni
+   ERRORE. Decidi ad alta voce su ogni ATTENZIONE, non in silenzio.
+5. Consegna il blocco pronto da copiare, poi la ricevuta:
+
+```
+DIDASCALIA PRONTA
+lavoro:     A - il reel porta l'hook
+visibili:   118 dei 125 caratteri prima del taglio
+richiesta:  una, commenta SCHEDA
+hashtag:    3
+ricerca:    "metodo di studio" alla riga 3, "isola vicentina" alla riga 5
+controllo:  PRONTA
+```
+
+Non si pubblica niente. L'utente incolla.

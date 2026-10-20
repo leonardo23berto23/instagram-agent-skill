@@ -1,100 +1,129 @@
 ---
 name: ig-plan
 description: >-
-  Build the week on Instagram - what to post, which format, when, and who to
-  engage with. Use when the user says "plan my week", "what should I post",
-  "content calendar", "I have nothing to post about", or wants a posting
-  schedule and an engagement list.
+  Costruisce la settimana (o il mese) su Instagram: cosa pubblicare, in che
+  formato, quando, con quale formula di hook, e con chi interagire. Usala quando
+  l'utente dice "pianifica la settimana", "cosa pubblico", "calendario
+  editoriale", "non so cosa pubblicare", o vuole un piano di pubblicazione e una
+  lista di account con cui interagire, anche per un cliente.
 ---
 
 # ig-plan
 
-The control room. Everything else in this pack executes; this decides what gets
-executed. Run it once a week, on the same day.
+La sala di controllo. Le altre skill del pacchetto eseguono; questa decide cosa
+eseguire. Una volta a settimana, sempre lo stesso giorno.
+
+## Preparazione (comune a tutto il pacchetto ig-*)
+
+Pacchetto: https://github.com/leonardo23berto23/instagram-agent-skill (fork
+italiano dell'originale di Jake Schincariol, licenza MIT). Questa skill non ha
+script. Le 27 formule stanno in `ig-reel/hooks.json`: accanto a questo file in
+un'installazione locale, altrimenti nel clone di sessione descritto in /ig-reel.
+
+- **File dell'utente** (`voice.md`, `swipe.md`, `log.md`, `plan.md`): se c'è un
+  Project collegato, documenti del Project sotto `claude/instagram/`;
+  altrimenti `~/.claude/instagram/`. Un set per account se l'utente gestisce
+  clienti (`plan-<account>.md`).
+- **Lingua.** Piano e angoli nella lingua del pubblico dell'account. Orari nel
+  fuso del pubblico.
 
 ## Input
 
-If `~/.claude/instagram/voice.md`, `swipe.md` and `log.md` exist, read them.
-The swipe file is the user's own evidence from `/ig-viral` about which formulas
-are landing in their niche right now, and it outranks anything in this file.
-The log stops the plan repeating a theme from the last fortnight.
+Se esistono `voice.md`, `swipe.md` e `log.md`, leggili. Lo swipe file è la
+prova, raccolta con /ig-viral, di quali formule funzionano adesso nella nicchia,
+e vale più di qualsiasi cosa scritta qui. Il log evita di ripetere un tema
+delle ultime due settimane. Se c'è un'analisi del profilo (/ig-profile) o un
+audit (/ig-audit), parti da lì: se il problema è il profilo, la prima settimana
+si sistema il profilo.
 
-If they do not exist, ask for four things and write them down:
+Se non esistono, chiedi quattro cose e scrivile:
 
-1. What the user sells, and to whom.
-2. The three or four themes they want to be known for.
-3. What actually happened this week: a client call, a number, a mistake, a
-   thing they built, an argument they had. This is where posts come from.
-4. Ten accounts worth being visible to.
+1. Cosa vende l'utente, e a chi.
+2. I tre o quattro temi per cui vuole essere conosciuto.
+3. Cosa è successo davvero questa settimana: una telefonata con un cliente, un
+   numero, un errore, una cosa costruita, una discussione. I post vengono da qui.
+4. Dieci account a cui vale la pena farsi vedere.
 
-## What to post
+## Cosa pubblicare
 
-Four to five posts a week, and at least three of them Reels. Reels are the only
-format on Instagram that reliably reaches people who do not follow the account.
-Carousels go deep with the people who already do. Stories are daily and are
-planned separately.
+Quattro-cinque post a settimana, di cui almeno tre Reel. I Reel sono l'unico
+formato che raggiunge con regolarità chi non segue l'account. I caroselli vanno
+a fondo con chi già segue. Le storie sono quotidiane e si pianificano a parte.
 
-Mix across the week, never two of the same type back to back:
+Mescola nella settimana, mai due dello stesso tipo di seguito:
 
-| type | share | job |
+| tipo | quanti | lavoro |
 | --- | --- | --- |
-| **Proof** | 1 per week | something that happened, with a number. Reel. |
-| **Teach** | 1 to 2 per week | one thing the viewer can do today. Reel or carousel. |
-| **Opinion** | 1 per week | a position that could lose you followers. Reel. |
-| **Story** | 1 per fortnight | a scene with a cost. Reel. |
-| **Offer** | 1 per fortnight | what you sell, said plainly, no apology. Carousel or stories. |
+| **Prova** | 1 a settimana | una cosa successa, con un numero. Reel. |
+| **Insegna** | 1-2 a settimana | una cosa che chi guarda può fare oggi. Reel o carosello. |
+| **Opinione** | 1 a settimana | una posizione che potrebbe farti perdere follower. Reel. |
+| **Storia** | 1 ogni due settimane | una scena con un costo. Reel. |
+| **Offerta** | 1 ogni due settimane | cosa vendi, detto chiaro, senza scusarti. Carosello o storie. |
 
-For each slot give: the theme, the specific angle from what actually happened
-this week, the format, and the hook formula number from `ig-reel/hooks.json`.
-Not a topic, an angle. "AI" is not a plan. "The proposal we lost because the
-draft had an em dash in it" is a Reel.
+Per ogni slot indica: il tema, l'angolo preciso da quello che è successo
+davvero, il formato e la formula di `hooks.json`, con la prima riga. Non un
+argomento, un angolo. "L'IA" non è un piano. "Il preventivo perso perché la
+bozza aveva un trattino lungo" è un Reel.
 
-## When to post
+Per un'attività locale (ristorante, negozio, studio) vale lo stesso mix con
+contenuti diversi: la prova è la sala piena o l'infornata finita con il numero,
+insegna è come scegliere o usare quello che vendono, l'opinione è una presa di
+posizione sul loro mestiere, la storia è una giornata dietro il banco,
+l'offerta è il piatto, l'evento o l'orario della settimana.
 
-Post when the user's audience is awake and not at work. For most consumer
-audiences that is early evening local time; for a business audience, early
-morning.
+**Una sola parola chiave per tutto il piano.** Se l'account può dare qualcosa
+di gratuito (una scheda, una checklist, un link), ogni reel chiude con
+"Commenta PAROLA" e in DM arriva la cosa promessa. Nelle nicchie italiane
+studiate è il meccanismo che trasforma le visualizzazioni in conversazioni. Le
+schede vanno pronte prima di pubblicare.
 
-But say this plainly: **the hour matters far less than the first two seconds.**
-Instagram will keep showing a Reel for days if it performs, and will bury a
-well-timed one that does not. If the user is optimising posting times before
-their hooks work, they are polishing the wrong thing, and you should say so.
+**Una collaborazione al mese** con un account che parla allo stesso pubblico:
+un post in collaborazione esce su due profili insieme, senza spendere niente.
 
-Anchor times to the audience's timezone, not the user's, if those differ.
+## Quando pubblicare
 
-## The engagement round, which is not optional
+Quando il pubblico è sveglio e non al lavoro. Per la maggior parte dei pubblici
+consumer è la prima sera, ora locale; per un pubblico business, la mattina
+presto; per i genitori, dopo cena e compiti.
 
-20 minutes a day, before posting, not after. Build a list of 10:
+Ma dillo chiaramente: **l'ora conta molto meno dei primi due secondi.**
+Instagram continua a mostrare per giorni un Reel che funziona, e ne seppellisce
+uno pubblicato all'ora perfetta che non funziona. Se l'utente ottimizza gli
+orari prima che gli hook funzionino, sta lucidando la cosa sbagliata, e devi
+dirglielo.
 
-- **5 reach** - accounts with an audience the user wants, where a good comment
-  gets seen. Comment early, before the thread is 200 deep.
-- **3 peers** - same size, same field. This is the group that reciprocates.
-- **2 buyers** - people who could actually buy. Comment for weeks before any
-  DM, and never pitch in a comment.
+## Il giro di commenti, che non è facoltativo
 
-Hand the list to `/ig-comment`.
+20 minuti al giorno, prima di pubblicare, non dopo. Una lista di 10:
 
-## Output
+- **5 di reach**: account con il pubblico che l'utente vuole, dove un buon
+  commento si vede. Commenta presto, prima che il thread sia lungo 200.
+- **3 pari**: stessa dimensione, stesso campo. È il gruppo che ricambia.
+- **2 compratori**: persone che potrebbero comprare davvero. Commenta per
+  settimane prima di qualsiasi DM, e mai vendere in un commento.
+
+Passa la lista a /ig-comment.
+
+## Risultato
 
 ```
-WEEK OF SEP 15
+SETTIMANA DEL 15 SETTEMBRE
 
-MON  engage only  (20 min, list below)
-TUE  7:30pm  REEL      PROOF    #5  Time Collapse   - 5hr proposal to 20 min
-WED  stories only + engage
-THU  7:00pm  CAROUSEL  TEACH    Job B caption       - the 4-slide clause breakdown
-FRI  7:30pm  REEL      OPINION  #2  Negative Command - stop doing discovery calls
-SAT  -
-SUN  6:00pm  REEL      STORY    #21 Mid-Sentence    - the refund email
+LUN  solo commenti  (20 min, lista sotto)
+MAR  19:30  REEL       PROVA     #5  Il tempo che crolla  - preventivo da 5 ore a 20 minuti
+MER  solo storie + commenti
+GIO  19:00  CAROSELLO  INSEGNA   didascalia lavoro B      - la clausola in 4 slide
+VEN  19:30  REEL       OPINIONE  #2  Comando negativo     - smetti di fare le call conoscitive
+SAB  -
+DOM  18:00  REEL       STORIA    #21 A metà frase         - la mail di rimborso
 
-STORIES  every day, 3 to 5 frames, question box on Thursday.
+STORIE  ogni giorno, 3-5 frame, box domande il giovedì.
+COMMENTI  (5 reach / 3 pari / 2 compratori)
 
-ENGAGE  (5 reach / 3 peers / 2 buyers)
-  ...
-
-Say "write Tuesday" and I will draft it.
+Di' "scrivi martedì" e lo preparo.
 ```
 
-Write the plan to `~/.claude/instagram/plan.md` so the other skills can read
-it. Nothing is scheduled or posted anywhere. This is a plan and the user runs
-it.
+Scrivi il piano in `plan.md` (vedi Preparazione) così le altre skill possono
+leggerlo. Quando l'utente lo chiede, ogni slot si sviluppa con /ig-reel o
+/ig-carousel. Niente viene programmato o pubblicato: è un piano, e lo esegue
+l'utente.
